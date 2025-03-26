@@ -1,8 +1,12 @@
+// PATH: PAGE --> PLACES (Homepage) : Route for Homepage - all places
+//
+// IMPORTS
 import styled from "styled-components";
 import Card from "../components/Card";
 import useSWR from "swr";
 import { StyledLink } from "../components/StyledLink";
 
+// STYLES: CSS
 const ListContainer = styled.ul`
   list-style: none;
   display: grid;
@@ -16,20 +20,23 @@ const FixedLink = styled(StyledLink)`
   right: 50px;
 `;
 
-export default function Home() {
-  const { data } = useSWR("/api/places", { fallbackData: [] });
+// FUNCTION: Home > Homepage
+function Home() {
+  const { data, isLoading, error, mutate } = useSWR("/api/places", {
+    fallbackData: [],
+  });
 
   return (
     <>
       <ListContainer>
         {data.map((place) => {
           return (
-            <li key={place.id}>
+            <li key={place._id}>
               <Card
                 name={place.name}
                 image={place.image}
                 location={place.location}
-                id={place.id}
+                id={place._id}
               />
             </li>
           );
@@ -39,3 +46,6 @@ export default function Home() {
     </>
   );
 }
+
+// EXPORTS
+export default Home;
