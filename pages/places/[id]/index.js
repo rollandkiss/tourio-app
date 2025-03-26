@@ -1,3 +1,6 @@
+// PATH: PAGE --> PLACES > ID (dynamic) : Dynamic Route for Single ID Place
+//
+// IMPORTS
 import { useRouter } from "next/router";
 import useSWR from "swr";
 import styled from "styled-components";
@@ -6,6 +9,7 @@ import { StyledLink } from "../../../components/StyledLink";
 import { StyledButton } from "../../../components/StyledButton";
 import { StyledImage } from "../../../components/StyledImage";
 
+// STYLES: CSS
 const ImageContainer = styled.div`
   position: relative;
   height: 15rem;
@@ -30,7 +34,8 @@ const StyledLocationLink = styled(StyledLink)`
   border: none;
 `;
 
-export default function DetailsPage() {
+// FUNCTION: Details
+function DetailsPage() {
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
@@ -75,3 +80,6 @@ export default function DetailsPage() {
     </>
   );
 }
+
+// EXPORTS
+export default DetailsPage;

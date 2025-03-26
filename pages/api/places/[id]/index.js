@@ -1,14 +1,38 @@
-import { places } from "../../../../lib/db.js";
+// PATH: API > PLACES > ID (dynamic) : Dynamic Route API
+//
+// IMPORTS
+import dbConnect from "@/db/connect";
+import PlaceModel from "@/db/models/places";
 
-export default function handler(request, response) {
+// FUNCTION: DB Handler
+export default async function handler(request, response) {
+  // Call Database Connection defined in "/db/connect.js"
+  await dbConnect();
+
+  // Destructure id from request > stored in query object
   const { id } = request.query;
 
-  const place = places.find((place) => place.id === id);
+  // Handle GET request
+  if (request.method === "GET") {
+    const place = await PlaceModel.findById(id);
 
-  if (!place) {
-    response.status(404).json({ status: "Not found" });
+    // Check if place can be found > if not write error
+    if (!place) {
+      response.status(404).json({ status: "Not found" });
+      return;
+    }
+
+    response.status(200).json(place);
     return;
   }
 
-  response.status(200).json(place);
+  // Handle POST request
+  if (request.method === "POST") {
+    const data = request.body;
+    await PlaceModel.create(data);
+    return;
+  }
+
+  // Handle NOT DEFINED request methods
+  response.status(405).json({ status: "Method not allowed." });
 }

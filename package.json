@@ -13,7 +13,7 @@
     "@next/font": "^13.0.6",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
-    "mongoose": "^7.0.3",
+    "mongoose": "^7.8.6",
     "next": "13.4.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
